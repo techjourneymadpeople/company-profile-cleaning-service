@@ -108,10 +108,10 @@
         <span>Akun Pengguna Demo:</span>
     </div>
     <div class="space-y-2 bg-[#f8fafc] p-3.5 rounded-2xl border border-slate-100">
-        <div class="flex justify-between items-center text-slate-600">
+        <!-- <div class="flex justify-between items-center text-slate-600">
             <span class="font-semibold text-slate-800">Super Admin:</span>
             <code class="text-[11px] bg-white px-2 py-0.5 rounded-md border border-slate-200 text-[#24695c]">superadmin@bersihsebagian.com</code>
-        </div>
+        </div> -->
         <div class="flex justify-between items-center text-slate-600">
             <span class="font-semibold text-slate-800">Owner:</span>
             <code class="text-[11px] bg-white px-2 py-0.5 rounded-md border border-slate-200 text-[#24695c]">owner@bersihsebagian.com</code>

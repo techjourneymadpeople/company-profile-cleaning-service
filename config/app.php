@@ -54,6 +54,10 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'developer_name' => env('DEVELOPER_NAME', 'Tech Journey Mad People'),
+
+    'developer_url' => env('DEVELOPER_URL', 'https://techjourneymadpeople.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

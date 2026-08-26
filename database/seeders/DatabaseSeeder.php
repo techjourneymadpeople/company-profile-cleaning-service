@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             MenuSeeder::class,
             ContentDummySeeder::class,
+            PageSectionSeeder::class,
         ]);
     }
 }

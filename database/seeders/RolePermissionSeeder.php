@@ -96,6 +96,10 @@ class RolePermissionSeeder extends Seeder
             'inquiry.view',
             'inquiry.update',
             'inquiry.delete',
+
+            // 9. Content Halaman Publik (Page Sections)
+            'page_section.view',
+            'page_section.edit',
         ];
 
         foreach ($permissions as $permission) {
@@ -116,13 +120,14 @@ class RolePermissionSeeder extends Seeder
             'user.create',
             'user.edit',
             'user.delete',
-            'menu.view',
-            'menu.create',
-            'menu.edit',
-            'menu.delete',
+            // 'menu.view',
+            // 'menu.create',
+            // 'menu.edit',
+            // 'menu.delete',
             'setting.view',
             'setting.update',
             // Content modules
+            'page_section.view', 'page_section.edit',
             'service.view', 'service.create', 'service.edit', 'service.delete',
             'project.view', 'project.create', 'project.edit', 'project.delete',
             'client.view', 'client.create', 'client.edit', 'client.delete',
@@ -140,6 +145,7 @@ class RolePermissionSeeder extends Seeder
             'access.dashboard',
             'menu.view',
             // Content modules
+            'page_section.view', 'page_section.edit',
             'service.view', 'service.create', 'service.edit', 'service.delete',
             'project.view', 'project.create', 'project.edit', 'project.delete',
             'client.view', 'client.create', 'client.edit', 'client.delete',

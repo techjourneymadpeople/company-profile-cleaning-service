@@ -2,26 +2,39 @@
 
 @section('content')
 
-<!-- Header Banner (Matching Reference UI Dark Navy Banner) -->
-<section aria-labelledby="services-page-title" class="bg-[#0B3B60] text-white py-14 lg:py-20 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Breadcrumbs -->
-        <nav aria-label="Breadcrumb" class="mb-4">
-            <ol class="flex items-center gap-2 text-xs font-semibold text-cyan-200/80">
-                <li><a href="{{ route('public.home') }}" class="hover:text-white transition-colors">Beranda</a></li>
-                <li><span>&rsaquo;</span></li>
-                <li class="text-white" aria-current="page">Layanan</li>
-            </ol>
-        </nav>
+@php
+    $headerSection = $sections['header'] ?? null;
+    $bottomCtaSection = $sections['bottom_cta'] ?? null;
+@endphp
 
-        <h1 id="services-page-title" class="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight">
-            Layanan Kami
-        </h1>
-        <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-            Berbagai layanan kebersihan profesional yang kami sediakan untuk memenuhi kebutuhan Anda.
-        </p>
-    </div>
-</section>
+<!-- Header Banner -->
+@if(!$headerSection || $headerSection->is_active)
+    <section aria-labelledby="services-page-title" class="bg-[#0B3B60] text-white py-14 lg:py-20 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Breadcrumbs -->
+            <nav aria-label="Breadcrumb" class="mb-4">
+                <ol class="flex items-center gap-2 text-xs font-semibold text-cyan-200/80">
+                    <li><a href="{{ route('public.home') }}" class="hover:text-white transition-colors">Beranda</a></li>
+                    <li><span>&rsaquo;</span></li>
+                    <li class="text-white" aria-current="page">Layanan</li>
+                </ol>
+            </nav>
+
+            @if($headerSection?->badge)
+                <span class="inline-block text-[11px] font-black uppercase tracking-widest text-cyan-300 bg-white/10 px-3.5 py-1 rounded-full mb-3 font-heading">
+                    {{ $headerSection->badge }}
+                </span>
+            @endif
+
+            <h1 id="services-page-title" class="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight">
+                {{ $headerSection?->title ?? 'Layanan Kami' }}
+            </h1>
+            <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                {{ $headerSection?->subtitle ?? 'Berbagai layanan kebersihan profesional yang kami sediakan untuk memenuhi kebutuhan Anda.' }}
+            </p>
+        </div>
+    </section>
+@endif
 
 <!-- Category Filter Pills -->
 <section aria-label="Filter Kategori Layanan" class="py-8 bg-white border-b border-slate-100">
@@ -97,17 +110,28 @@
             @endforelse
         </div>
 
-        <!-- Bottom CTA Box in Services Index (Matching Reference) -->
-        <div class="mt-16 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
-                <h2 class="text-lg sm:text-xl font-black text-[#0B3B60] font-heading">Butuh Layanan Kebersihan Profesional?</h2>
-                <p class="text-xs text-slate-500 mt-1">Kami siap membantu Anda menciptakan lingkungan yang bersih, sehat, dan nyaman.</p>
+        <!-- Bottom CTA Box in Services Index -->
+        @if(!$bottomCtaSection || $bottomCtaSection->is_active)
+            <div class="mt-16 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                    @if($bottomCtaSection?->badge)
+                        <span class="inline-block text-[10px] font-extrabold uppercase tracking-wider text-[#0B3B60] bg-[#e6f1f8] px-2.5 py-0.5 rounded-full font-heading mb-1.5">
+                            {{ $bottomCtaSection->badge }}
+                        </span>
+                    @endif
+                    <h2 class="text-lg sm:text-xl font-black text-[#0B3B60] font-heading">
+                        {{ $bottomCtaSection?->title ?? 'Butuh Layanan Kebersihan Profesional?' }}
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        {{ $bottomCtaSection?->subtitle ?? 'Kami siap membantu Anda menciptakan lingkungan yang bersih, sehat, dan nyaman.' }}
+                    </p>
+                </div>
+                <a href="{{ $bottomCtaSection?->button_url ?: route('public.contact') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-[#0B3B60] hover:bg-[#07243B] shrink-0 font-heading shadow-md shadow-[#0B3B60]/20">
+                    <span>{{ $bottomCtaSection?->button_text ?? 'Hubungi Kami' }}</span>
+                    <x-heroicon-o-arrow-right class="w-4 h-4 text-cyan-300" aria-hidden="true" />
+                </a>
             </div>
-            <a href="{{ route('public.contact') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-[#0B3B60] hover:bg-[#07243B] shrink-0 font-heading shadow-md shadow-[#0B3B60]/20">
-                <span>Hubungi Kami</span>
-                <x-heroicon-o-arrow-right class="w-4 h-4 text-cyan-300" aria-hidden="true" />
-            </a>
-        </div>
+        @endif
 
     </div>
 </section>

@@ -59,11 +59,19 @@ class MenuSeeder extends Seeder
 
             // 3. Content
             [
+                'title' => 'Content Halaman Publik',
+                'route' => 'admin.page-sections.index',
+                'icon' => 'heroicon-o-window',
+                'permission_name' => 'page_section.view',
+                'order' => 6,
+                'is_active' => true,
+            ],
+            [
                 'title' => 'Solusi & Layanan',
                 'route' => 'admin.services.index',
                 'icon' => 'heroicon-o-sparkles',
                 'permission_name' => 'service.view',
-                'order' => 6,
+                'order' => 7,
                 'is_active' => true,
             ],
             [
@@ -71,7 +79,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.projects.index',
                 'icon' => 'heroicon-o-photo',
                 'permission_name' => 'project.view',
-                'order' => 7,
+                'order' => 8,
                 'is_active' => true,
             ],
             [
@@ -79,7 +87,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.clients.index',
                 'icon' => 'heroicon-o-building-office-2',
                 'permission_name' => 'client.view',
-                'order' => 8,
+                'order' => 9,
                 'is_active' => true,
             ],
             [
@@ -87,7 +95,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.certificates.index',
                 'icon' => 'heroicon-o-academic-cap',
                 'permission_name' => 'certificate.view',
-                'order' => 9,
+                'order' => 10,
                 'is_active' => true,
             ],
             [
@@ -95,7 +103,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.statistics.index',
                 'icon' => 'heroicon-o-chart-bar',
                 'permission_name' => 'statistic.view',
-                'order' => 10,
+                'order' => 11,
                 'is_active' => true,
             ],
             [
@@ -103,7 +111,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.testimonials.index',
                 'icon' => 'heroicon-o-chat-bubble-bottom-center-text',
                 'permission_name' => 'testimonial.view',
-                'order' => 11,
+                'order' => 12,
                 'is_active' => true,
             ],
             [
@@ -111,7 +119,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.articles.index',
                 'icon' => 'heroicon-o-newspaper',
                 'permission_name' => 'article.view',
-                'order' => 12,
+                'order' => 13,
                 'is_active' => true,
             ],
             [
@@ -119,7 +127,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.inquiries.index',
                 'icon' => 'heroicon-o-inbox-arrow-down',
                 'permission_name' => 'inquiry.view',
-                'order' => 13,
+                'order' => 14,
                 'is_active' => true,
             ],
 
@@ -129,7 +137,7 @@ class MenuSeeder extends Seeder
                 'route' => 'admin.settings.index',
                 'icon' => 'heroicon-o-cog-6-tooth',
                 'permission_name' => 'setting.view',
-                'order' => 14,
+                'order' => 15,
                 'is_active' => true,
             ],
         ];

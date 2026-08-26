@@ -20,7 +20,18 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $users = User::with('roles')->latest()->get();
+        if(auth()->user()->hasRole('Super Admin')){
+            $users = User::with('roles')->latest()->get();
+        }else{
+            $users = User::with('roles')->whereHas('roles',function($q){
+                $q->where('name','!=','Super Admin');
+            })->latest()->get();
+        }
+        // if (!auth()->user()->hasRole('Super Admin')) {
+        //     $users = User::with('roles')->whereNotIn('id', [auth()->user()->id])->latest()->get();
+        // } else {
+        //     $users = User::with('roles')->latest()->get();
+        // }
 
         return view('admin.users.index', compact('users'));
     }
@@ -30,7 +41,11 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        $roles = Role::all();
+        if(auth()->user()->hasRole('Super Admin')){
+            $roles = Role::all();
+        }else{
+            $roles = Role::where('name','!=','Super Admin')->get();
+        }
 
         return view('admin.users.create', compact('roles'));
     }
@@ -67,7 +82,11 @@ class UserController extends Controller
      */
     public function edit(User $user): View
     {
-        $roles = Role::all();
+        if(auth()->user()->hasRole('Super Admin')){
+            $roles = Role::all();
+        }else{
+            $roles = Role::where('name','!=','Super Admin')->get();
+        }
         $userRoleNames = $user->roles->pluck('name')->toArray();
 
         return view('admin.users.edit', compact('user', 'roles', 'userRoleNames'));

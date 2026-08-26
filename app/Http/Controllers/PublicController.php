@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Certificate;
 use App\Models\Client;
 use App\Models\Inquiry;
+use App\Models\PageSection;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Statistic;
@@ -42,6 +43,7 @@ class PublicController extends Controller
         }
 
         // Data for Sections
+        $sections = PageSection::getForPage('home');
         $services = Service::active()->take(6)->get();
         $projects = Project::with('service')->latest()->take(6)->get();
         $clients = Client::visible()->get();
@@ -54,6 +56,7 @@ class PublicController extends Controller
             'brand',
             'contact',
             'social',
+            'sections',
             'services',
             'projects',
             'clients',
@@ -73,6 +76,7 @@ class PublicController extends Controller
         SEOTools::setCanonical(route('public.services'));
 
         $categories = ['Semua', 'Kebersihan', 'Keamanan & Higienitas', 'Manajemen Fasilitas'];
+        $sections = PageSection::getForPage('services');
 
         $services = Service::active()
             ->when($category && $category !== 'Semua', function ($query) use ($category) {
@@ -80,7 +84,7 @@ class PublicController extends Controller
             })
             ->get();
 
-        return view('frontend.services.index', compact('brand', 'services', 'categories', 'category'));
+        return view('frontend.services.index', compact('brand', 'sections', 'services', 'categories', 'category'));
     }
 
     public function serviceDetail(string $slug, BrandSettings $brand): View
@@ -109,10 +113,11 @@ class PublicController extends Controller
         SEOTools::setDescription('Lihat deretan mitra korporat yang mempercayai kami serta dokumentasi komparasi before & after proyek pengerjaan kebersihan.');
         SEOTools::setCanonical(route('public.portfolio'));
 
+        $sections = PageSection::getForPage('portfolio');
         $clients = Client::visible()->get();
         $projects = Project::with('service')->latest()->get();
 
-        return view('frontend.portfolio', compact('brand', 'clients', 'projects'));
+        return view('frontend.portfolio', compact('brand', 'sections', 'clients', 'projects'));
     }
 
     public function articles(Request $request, BrandSettings $brand): View
@@ -123,6 +128,8 @@ class PublicController extends Controller
         SEOTools::setTitle('Edukasi Kebersihan & Berita - ' . $brand->site_name);
         SEOTools::setDescription('Kumpulan artikel edukasi kebersihan, tips manajemen fasilitas gedung, dan kabar aktivitas terbaru perusahaan.');
         SEOTools::setCanonical(route('public.articles'));
+
+        $sections = PageSection::getForPage('articles');
 
         $articles = Article::published()
             ->with('author')
@@ -139,7 +146,7 @@ class PublicController extends Controller
 
         $categories = Article::published()->distinct()->pluck('category');
 
-        return view('frontend.articles.index', compact('brand', 'articles', 'categories', 'search', 'category'));
+        return view('frontend.articles.index', compact('brand', 'sections', 'articles', 'categories', 'search', 'category'));
     }
 
     public function articleDetail(string $slug, BrandSettings $brand): View
@@ -180,9 +187,10 @@ class PublicController extends Controller
         SEOTools::setDescription('Hubungi kantor pusat kami atau kirim formulir permintaan penawaran harga (RFQ) cleaning service gratis.');
         SEOTools::setCanonical(route('public.contact'));
 
+        $sections = PageSection::getForPage('contact');
         $services = Service::active()->get();
 
-        return view('frontend.contact', compact('brand', 'contact', 'services'));
+        return view('frontend.contact', compact('brand', 'sections', 'contact', 'services'));
     }
 
     public function submitInquiry(Request $request): RedirectResponse

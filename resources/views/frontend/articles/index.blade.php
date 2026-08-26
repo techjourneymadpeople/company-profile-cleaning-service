@@ -2,26 +2,39 @@
 
 @section('content')
 
-<!-- Header Banner -->
-<section aria-labelledby="articles-page-title" class="bg-[#0B3B60] text-white py-14 lg:py-20 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Breadcrumbs -->
-        <nav aria-label="Breadcrumb" class="mb-4">
-            <ol class="flex items-center gap-2 text-xs font-semibold text-cyan-200/80">
-                <li><a href="{{ route('public.home') }}" class="hover:text-white transition-colors">Beranda</a></li>
-                <li><span>&rsaquo;</span></li>
-                <li class="text-white" aria-current="page">Artikel & Berita</li>
-            </ol>
-        </nav>
+@php
+    $headerSection = $sections['header'] ?? null;
+    $newsletterCtaSection = $sections['newsletter_cta'] ?? null;
+@endphp
 
-        <h1 id="articles-page-title" class="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight">
-            Artikel & Edukasi Kebersihan
-        </h1>
-        <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-            Wawasan seputar teknik perawatan fasilitas properti, standar sanitasi gedung, dan berita kegiatan perusahaan.
-        </p>
-    </div>
-</section>
+<!-- Header Banner -->
+@if(!$headerSection || $headerSection->is_active)
+    <section aria-labelledby="articles-page-title" class="bg-[#0B3B60] text-white py-14 lg:py-20 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Breadcrumbs -->
+            <nav aria-label="Breadcrumb" class="mb-4">
+                <ol class="flex items-center gap-2 text-xs font-semibold text-cyan-200/80">
+                    <li><a href="{{ route('public.home') }}" class="hover:text-white transition-colors">Beranda</a></li>
+                    <li><span>&rsaquo;</span></li>
+                    <li class="text-white" aria-current="page">Artikel & Berita</li>
+                </ol>
+            </nav>
+
+            @if($headerSection?->badge)
+                <span class="inline-block text-[11px] font-black uppercase tracking-widest text-cyan-300 bg-white/10 px-3.5 py-1 rounded-full mb-3 font-heading">
+                    {{ $headerSection->badge }}
+                </span>
+            @endif
+
+            <h1 id="articles-page-title" class="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight">
+                {{ $headerSection?->title ?? 'Artikel & Edukasi Kebersihan' }}
+            </h1>
+            <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                {{ $headerSection?->subtitle ?? 'Wawasan seputar teknik perawatan fasilitas properti, standar sanitasi gedung, dan berita kegiatan perusahaan.' }}
+            </p>
+        </div>
+    </section>
+@endif
 
 <!-- Filter & Search Section -->
 <section aria-label="Filter & Pencarian Artikel" class="py-6 bg-white border-b border-slate-100">
@@ -118,6 +131,29 @@
         @if($articles->hasPages())
             <div class="mt-12">
                 {{ $articles->links() }}
+            </div>
+        @endif
+
+        <!-- Bottom CTA in Articles -->
+        @if(!$newsletterCtaSection || $newsletterCtaSection->is_active)
+            <div class="mt-16 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                    @if($newsletterCtaSection?->badge)
+                        <span class="inline-block text-[10px] font-extrabold uppercase tracking-wider text-[#0B3B60] bg-[#e6f1f8] px-2.5 py-0.5 rounded-full font-heading mb-1.5">
+                            {{ $newsletterCtaSection->badge }}
+                        </span>
+                    @endif
+                    <h2 class="text-lg sm:text-xl font-black text-[#0B3B60] font-heading">
+                        {{ $newsletterCtaSection?->title ?? 'Ingin Menerapkan Standar Kebersihan Terbaik di Gedung Anda?' }}
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        {{ $newsletterCtaSection?->subtitle ?? 'Hubungi kami hari ini untuk berdiskusi langsung dengan tim konsultan kebersihan profesional.' }}
+                    </p>
+                </div>
+                <a href="{{ $newsletterCtaSection?->button_url ?: route('public.contact') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-[#0B3B60] hover:bg-[#07243B] shrink-0 font-heading shadow-md shadow-[#0B3B60]/20">
+                    <span>{{ $newsletterCtaSection?->button_text ?? 'Minta Penawaran' }}</span>
+                    <x-heroicon-o-arrow-right class="w-4 h-4 text-cyan-300" aria-hidden="true" />
+                </a>
             </div>
         @endif
 

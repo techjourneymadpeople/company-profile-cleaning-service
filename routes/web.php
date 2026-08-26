@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\PageSectionController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\RoleController;
@@ -57,6 +58,12 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
         Route::resource('menus', MenuController::class);
+
+        // Content Halaman Publik (Section Management)
+        Route::get('page-sections', [PageSectionController::class, 'index'])->name('page-sections.index');
+        Route::get('page-sections/{pageSection}/edit', [PageSectionController::class, 'edit'])->name('page-sections.edit');
+        Route::put('page-sections/{pageSection}', [PageSectionController::class, 'update'])->name('page-sections.update');
+        Route::patch('page-sections/{pageSection}/toggle-status', [PageSectionController::class, 'toggleStatus'])->name('page-sections.toggle-status');
 
         // 8 Content Modules
         Route::resource('services', ServiceController::class);

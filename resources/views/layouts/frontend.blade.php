@@ -259,7 +259,9 @@
 
             <!-- Bottom Copyright & Compliance -->
             <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
-                <p>&copy; {{ date('Y') }} {{ $brand->site_name ?: 'PT BersihPrima' }}. All rights reserved.</p>
+                <p>
+                    Copyright &copy; {{ date('Y') }} {{ $brand->site_name ?: 'PT Bersih Sebagian Dari Iman' }}. All Right Reserved. | Developed by <a href="{{ config('app.developer_url', env('DEVELOPER_URL', 'https://techjourneymadpeople.com')) }}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-semibold underline underline-offset-2 transition-colors">{{ config('app.developer_name', env('DEVELOPER_NAME', 'Tech Journey Mad People')) }}</a>
+                </p>
                 <div class="flex items-center gap-4 text-[11px]">
                     <span class="text-teal-400 font-semibold">ISO 9001:2015 Certified</span>
                     <span>•</span>

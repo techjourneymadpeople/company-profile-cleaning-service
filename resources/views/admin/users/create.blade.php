@@ -115,7 +115,7 @@
                             >
                             <div class="ml-3">
                                 <span class="block text-xs font-bold text-slate-900 font-heading">{{ $role->name }}</span>
-                                <span class="block text-[10px] text-slate-400 font-mono">{{ $role->permissions->count() }} permissions</span>
+                                <!-- <span class="block text-[10px] text-slate-400 font-mono">{{ $role->permissions->count() }} permissions</span> -->
                             </div>
                         </label>
                     @endforeach

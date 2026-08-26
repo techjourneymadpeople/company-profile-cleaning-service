@@ -123,7 +123,7 @@
                             $group = match(true) {
                                 $menu->order <= 1 => 'Dashboard',
                                 $menu->order <= 5 => 'User dan Akses Kontrol',
-                                $menu->order <= 13 => 'Content',
+                                $menu->order <= 14 => 'Content',
                                 default => 'Pengaturan',
                             };
                         @endphp
@@ -259,7 +259,9 @@
 
         <!-- Footer -->
         <footer role="contentinfo" class="bg-white border-t border-slate-200/80 px-6 py-3.5 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 shrink-0">
-            <span>&copy; {{ date('Y') }} {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}. All rights reserved.</span>
+            <span>
+                Copyright &copy; {{ date('Y') }} {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}. All Right Reserved. | Developed by <a href="{{ config('app.developer_url', env('DEVELOPER_URL', 'https://techjourneymadpeople.com')) }}" target="_blank" rel="noopener noreferrer" class="text-[#24695c] hover:underline font-bold transition-colors">{{ config('app.developer_name', env('DEVELOPER_NAME', 'Tech Journey Mad People')) }}</a>
+            </span>
             <span class="mt-1 sm:mt-0 font-bold text-[#24695c]">WCAG 2.1 Level AA Compliant</span>
         </footer>
 
