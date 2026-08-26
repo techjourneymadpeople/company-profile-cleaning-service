@@ -109,19 +109,32 @@
                 </div>
             </div>
 
-            <!-- Dynamic Viho Menu Section -->
+            <!-- Dynamic Viho Menu Section with 4 Clear Categories -->
             <nav role="navigation" aria-label="Navigasi Menu Utama" class="px-4 py-4 space-y-1">
                 
-                <div class="px-3 pt-2 pb-1.5 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 font-heading">
-                    Menu Utama
-                </div>
-
                 @php
                     $sidebarMenus = \App\Models\Menu::active()->ordered()->get();
+                    $currentGroup = null;
                 @endphp
 
                 @forelse($sidebarMenus as $menu)
                     @if(empty($menu->permission_name) || auth()->user()->can($menu->permission_name))
+                        @php
+                            $group = match(true) {
+                                $menu->order <= 1 => 'Dashboard',
+                                $menu->order <= 5 => 'User dan Akses Kontrol',
+                                $menu->order <= 13 => 'Content',
+                                default => 'Pengaturan',
+                            };
+                        @endphp
+
+                        @if($currentGroup !== $group)
+                            @php $currentGroup = $group; @endphp
+                            <div class="px-3 pt-4 pb-1.5 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 font-heading first:pt-1">
+                                {{ $group }}
+                            </div>
+                        @endif
+
                         @php
                             $isCurrent = false;
                             $targetUrl = '#';
@@ -145,7 +158,7 @@
                                 }
                             }
                         @endphp
-                        <a href="{{ $targetUrl }}" class="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 {{ $isCurrent ? 'bg-[#24695c] text-white shadow-md shadow-[#24695c]/25 font-bold' : 'text-slate-600 hover:bg-[#e2f4f1]/60 hover:text-[#24695c]' }} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c]" @if($isCurrent) aria-current="page" @endif>
+                        <a href="{{ $targetUrl }}" class="group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 {{ $isCurrent ? 'bg-[#24695c] text-white shadow-md shadow-[#24695c]/25 font-bold' : 'text-slate-600 hover:bg-[#e2f4f1]/60 hover:text-[#24695c]' }} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c]" @if($isCurrent) aria-current="page" @endif>
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-colors {{ $isCurrent ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-[#e2f4f1] group-hover:text-[#24695c]' }}">
                                     @if($menu->icon && str_starts_with($menu->icon, 'heroicon-'))
@@ -154,7 +167,7 @@
                                         <x-heroicon-o-folder class="w-4 h-4" aria-hidden="true" />
                                     @endif
                                 </div>
-                                <span class="font-medium {{ $isCurrent ? 'font-bold' : '' }}">{{ $menu->title }}</span>
+                                <span class="font-medium {{ $isCurrent ? 'font-bold' : '' }} text-xs sm:text-sm">{{ $menu->title }}</span>
                             </div>
                             
                             @if($menu->permission_name && in_array($menu->permission_name, ['role.view', 'permission.view']))
