@@ -20,7 +20,8 @@ class AuthAndDashboardTest extends TestCase
     {
         $response = $this->get('/login');
         $response->assertStatus(200);
-        $response->assertSee('Masuk ke Dashboard');
+        $response->assertSee('Sign In');
+        $response->assertSee('Alamat Email');
     }
 
     public function test_user_can_login_and_access_dashboard(): void

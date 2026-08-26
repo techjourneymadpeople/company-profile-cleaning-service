@@ -1,8 +1,8 @@
 @extends('layouts.auth')
 
 @section('title', 'Atur Ulang Kata Sandi')
-@section('header-title', 'Atur Ulang Kata Sandi')
-@section('header-subtitle', 'Masukkan kata sandi baru untuk akun Anda')
+@section('header-title', 'Create New Password')
+@section('header-subtitle', 'Masukkan kata sandi baru untuk mengamankan akun Anda')
 
 @section('content')
 <form method="POST" action="{{ route('password.update') }}" class="space-y-5" novalidate>
@@ -12,10 +12,13 @@
 
     <!-- Email Address -->
     <div>
-        <label for="email" class="block text-sm font-semibold text-slate-800">
-            Alamat Email <span class="text-rose-600" aria-hidden="true">*</span>
+        <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 font-heading">
+            Alamat Email <span class="text-rose-500" aria-hidden="true">*</span>
         </label>
-        <div class="mt-1.5 relative">
+        <div class="mt-1.5 relative rounded-2xl shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <x-heroicon-o-envelope class="w-5 h-5 text-slate-400" aria-hidden="true" />
+            </div>
             <input 
                 id="email" 
                 name="email" 
@@ -24,7 +27,7 @@
                 required 
                 aria-required="true"
                 value="{{ old('email', $request->email) }}"
-                class="block w-full rounded-xl border {{ $errors->has('email') ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500' : 'border-slate-300 focus:border-emerald-600 focus:ring-emerald-500' }} px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-sm transition-colors"
+                class="block w-full rounded-2xl border {{ $errors->has('email') ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500' : 'border-slate-200 focus:border-[#24695c] focus:ring-[#24695c]' }} pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
                 @if($errors->has('email')) aria-invalid="true" aria-describedby="email-error" @endif
             >
         </div>
@@ -38,10 +41,13 @@
 
     <!-- Password -->
     <div>
-        <label for="password" class="block text-sm font-semibold text-slate-800">
-            Kata Sandi Baru <span class="text-rose-600" aria-hidden="true">*</span>
+        <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 font-heading">
+            Kata Sandi Baru <span class="text-rose-500" aria-hidden="true">*</span>
         </label>
-        <div class="mt-1.5 relative">
+        <div class="mt-1.5 relative rounded-2xl shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <x-heroicon-o-lock-closed class="w-5 h-5 text-slate-400" aria-hidden="true" />
+            </div>
             <input 
                 id="password" 
                 name="password" 
@@ -50,7 +56,7 @@
                 required 
                 aria-required="true"
                 placeholder="Minimal 8 karakter"
-                class="block w-full rounded-xl border {{ $errors->has('password') ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500' : 'border-slate-300 focus:border-emerald-600 focus:ring-emerald-500' }} px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-sm transition-colors"
+                class="block w-full rounded-2xl border {{ $errors->has('password') ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500' : 'border-slate-200 focus:border-[#24695c] focus:ring-[#24695c]' }} pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
                 @if($errors->has('password')) aria-invalid="true" aria-describedby="password-error" @endif
             >
         </div>
@@ -64,10 +70,13 @@
 
     <!-- Password Confirmation -->
     <div>
-        <label for="password_confirmation" class="block text-sm font-semibold text-slate-800">
-            Konfirmasi Kata Sandi Baru <span class="text-rose-600" aria-hidden="true">*</span>
+        <label for="password_confirmation" class="block text-xs font-bold uppercase tracking-wider text-slate-700 font-heading">
+            Konfirmasi Kata Sandi Baru <span class="text-rose-500" aria-hidden="true">*</span>
         </label>
-        <div class="mt-1.5 relative">
+        <div class="mt-1.5 relative rounded-2xl shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <x-heroicon-o-check-badge class="w-5 h-5 text-slate-400" aria-hidden="true" />
+            </div>
             <input 
                 id="password_confirmation" 
                 name="password_confirmation" 
@@ -76,7 +85,7 @@
                 required 
                 aria-required="true"
                 placeholder="Ulangi kata sandi baru"
-                class="block w-full rounded-xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-500 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-sm transition-colors"
+                class="block w-full rounded-2xl border border-slate-200 focus:border-[#24695c] focus:ring-[#24695c] pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
             >
         </div>
     </div>
@@ -85,7 +94,7 @@
     <div>
         <button 
             type="submit" 
-            class="w-full flex justify-center items-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 shadow-md shadow-emerald-600/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 transition-all cursor-pointer"
+            class="w-full flex justify-center items-center gap-2.5 py-3.5 px-4 rounded-2xl text-sm font-bold text-white bg-[#24695c] hover:bg-[#1b5247] active:bg-[#154239] shadow-lg shadow-[#24695c]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c] focus-visible:ring-offset-2 transition-all cursor-pointer font-heading uppercase tracking-wider"
         >
             <x-heroicon-o-check class="w-5 h-5" aria-hidden="true" />
             <span>Simpan Kata Sandi Baru</span>
