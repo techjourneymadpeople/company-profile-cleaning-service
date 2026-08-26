@@ -305,9 +305,12 @@
 
                 <!-- Right Side: Visual & Support Image -->
                 <div class="lg:col-span-5 relative bg-slate-900 overflow-hidden flex flex-col justify-end min-h-[300px]">
+                    @php
+                        $formSectionImage = $formSection?->image ? (str_starts_with($formSection->image, 'http') ? $formSection->image : asset('storage/' . $formSection->image)) : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80';
+                    @endphp
                     <img 
-                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
-                        alt="Customer Support Bersih Sebagian" 
+                        src="{{ $formSectionImage }}" 
+                        alt="{{ $formSection?->title ?? 'Customer Support Bersih Sebagian' }}" 
                         class="absolute inset-0 w-full h-full object-cover opacity-60"
                     >
                     <div class="relative z-10 p-8 sm:p-10 bg-gradient-to-t from-[#0B3B60] via-[#0B3B60]/80 to-transparent text-white space-y-3">

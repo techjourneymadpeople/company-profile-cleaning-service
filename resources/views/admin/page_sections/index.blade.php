@@ -143,6 +143,19 @@
                                         <span class="font-medium text-slate-700 bg-slate-100 px-2 py-0.5 rounded">{{ $section->button_text }} &rarr; {{ $section->button_url }}</span>
                                     </div>
                                 @endif
+
+                                @if($section->image)
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-500 pt-0.5">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Thumbnail:</span>
+                                        @php
+                                            $thumbnailSrc = str_starts_with($section->image, 'http') ? $section->image : asset('storage/' . $section->image);
+                                        @endphp
+                                        <div class="inline-flex items-center gap-1.5 bg-slate-50 px-2 py-0.5 rounded-lg border border-slate-200">
+                                            <img src="{{ $thumbnailSrc }}" alt="Thumbnail" class="w-4 h-4 rounded object-cover">
+                                            <span class="text-[10px] text-slate-600 font-mono">Ada Gambar</span>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

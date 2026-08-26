@@ -330,40 +330,70 @@
                 <!-- Image / Media Card -->
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] space-y-4">
                     <div class="border-b border-slate-100 pb-3">
-                        <h3 class="text-sm font-bold text-slate-900 font-heading uppercase tracking-wider">
-                            Gambar / Media Section
+                        <h3 class="text-sm font-bold text-slate-900 font-heading uppercase tracking-wider flex items-center gap-2">
+                            <x-heroicon-o-photo class="w-4 h-4 text-[#24695c]" />
+                            <span>Thumbnail / Gambar Section</span>
                         </h3>
-                        <p class="text-xs text-slate-400">Upload gambar visual atau banner section</p>
+                        <p class="text-xs text-slate-400">Upload thumbnail atau banner visual untuk section ini</p>
                     </div>
 
-                    <!-- Existing Image Preview -->
-                    @if($pageSection->image)
-                        <div class="space-y-2">
-                            <span class="text-[11px] font-bold text-slate-500 block">Gambar Saat Ini:</span>
-                            <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 aspect-video flex items-center justify-center">
-                                @php
-                                    $imgSrc = str_starts_with($pageSection->image, 'http') ? $pageSection->image : asset('storage/' . $pageSection->image);
-                                @endphp
-                                <img id="current-image-preview" src="{{ $imgSrc }}" alt="Preview" class="w-full h-full object-cover">
+                    <!-- Image Preview Area (Always present) -->
+                    @php
+                        $hasImage = !empty($pageSection->image);
+                        $imgSrc = $hasImage ? (str_starts_with($pageSection->image, 'http') ? $pageSection->image : asset('storage/' . $pageSection->image)) : '';
+                    @endphp
+
+                    <div id="image-preview-container" class="{{ $hasImage ? '' : 'hidden' }} space-y-2">
+                        <span class="text-[11px] font-bold text-slate-600 block">Preview Thumbnail Saat Ini:</span>
+                        <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900/5 aspect-video flex items-center justify-center group shadow-inner">
+                            <img id="current-image-preview" src="{{ $imgSrc }}" alt="Preview Gambar Section" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold">
+                                Gambar Thumbnail Aktif
                             </div>
                         </div>
-                    @endif
+                    </div>
 
-                    <!-- Upload Input -->
-                    <div>
-                        <label for="image_file" class="block text-[11px] font-bold text-slate-600 mb-1.5">
-                            {{ $pageSection->image ? 'Ganti File Gambar (Opsional)' : 'Upload Gambar Baru' }}
+                    <div id="image-empty-placeholder" class="{{ $hasImage ? 'hidden' : '' }} p-6 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center text-center">
+                        <div class="w-10 h-10 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mb-2">
+                            <x-heroicon-o-photo class="w-6 h-6" />
+                        </div>
+                        <span class="text-xs font-bold text-slate-600 font-heading">Belum Ada Thumbnail</span>
+                        <span class="text-[11px] text-slate-400 mt-0.5">Pilih file di bawah untuk menambahkan gambar</span>
+                    </div>
+
+                    <!-- Upload Input Form -->
+                    <div class="space-y-1.5">
+                        <label for="image_file" class="block text-xs font-bold uppercase tracking-wider text-slate-700 font-heading">
+                            {{ $hasImage ? 'Ganti File Gambar' : 'Pilih File Gambar' }}
                         </label>
-                        <input type="file" name="image_file" id="image_file" accept="image/jpeg,image/png,image/webp,image/svg+xml" onchange="previewSelectedImage(event)" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#e2f4f1] file:text-[#24695c] hover:file:bg-[#24695c] hover:file:text-white file:transition-all cursor-pointer">
-                        <span class="text-[10px] text-slate-400 mt-1 block">Format: JPG, PNG, WEBP, SVG (Maks. 4MB)</span>
+                        <input 
+                            type="file" 
+                            name="image_file" 
+                            id="image_file" 
+                            accept="image/jpeg,image/png,image/webp,image/svg+xml" 
+                            onchange="previewSelectedImage(event)" 
+                            class="w-full text-xs text-slate-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#e2f4f1] file:text-[#24695c] hover:file:bg-[#24695c] hover:file:text-white file:transition-all cursor-pointer bg-slate-50 border border-slate-200 rounded-2xl p-1.5"
+                        >
+                        <span class="text-[10px] text-slate-400 block">Format: JPG, PNG, WEBP, SVG (Maksimal 4 MB)</span>
+                        @error('image_file')
+                            <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- External Image URL input fallback -->
-                    <div class="pt-2 border-t border-slate-100">
-                        <label for="image" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-                            Atau Gunakan URL Gambar Eksternal:
+                    <div class="pt-3 border-t border-slate-100 space-y-1">
+                        <label for="image" class="block text-[11px] font-bold text-slate-600">
+                            Atau Masukkan URL Gambar (Opsional):
                         </label>
-                        <input type="text" name="image" id="image" value="{{ old('image', $pageSection->image) }}" placeholder="https://images.unsplash.com/..." class="w-full px-3 py-1.5 rounded-xl text-xs border border-slate-200 focus:ring-2 focus:ring-[#24695c] font-mono text-slate-600">
+                        <input 
+                            type="text" 
+                            name="image" 
+                            id="image" 
+                            value="{{ old('image', $pageSection->image) }}" 
+                            oninput="previewUrlImage(this.value)"
+                            placeholder="https://images.unsplash.com/photo-..." 
+                            class="w-full px-3 py-2 rounded-xl text-xs border border-slate-200 focus:ring-2 focus:ring-[#24695c] font-mono text-slate-700 bg-slate-50/50 focus:bg-white"
+                        >
                     </div>
                 </div>
 
@@ -381,12 +411,37 @@ function previewSelectedImage(event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            let img = document.getElementById('current-image-preview');
+            const container = document.getElementById('image-preview-container');
+            const img = document.getElementById('current-image-preview');
+            const placeholder = document.getElementById('image-empty-placeholder');
             if (img) {
                 img.src = e.target.result;
             }
+            if (container) {
+                container.classList.remove('hidden');
+            }
+            if (placeholder) {
+                placeholder.classList.add('hidden');
+            }
         };
         reader.readAsDataURL(file);
+    }
+}
+
+function previewUrlImage(url) {
+    const container = document.getElementById('image-preview-container');
+    const img = document.getElementById('current-image-preview');
+    const placeholder = document.getElementById('image-empty-placeholder');
+    if (url && url.trim() !== '') {
+        if (img) {
+            img.src = url.trim();
+        }
+        if (container) {
+            container.classList.remove('hidden');
+        }
+        if (placeholder) {
+            placeholder.classList.add('hidden');
+        }
     }
 }
 </script>
