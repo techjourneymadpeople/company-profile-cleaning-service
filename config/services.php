@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'gtm' => [
+        'id' => env('GTM_ID'),
+    ],
+
+    'meta_pixel' => [
+        'id' => env('META_PIXEL_ID'),
+    ],
+
 ];
