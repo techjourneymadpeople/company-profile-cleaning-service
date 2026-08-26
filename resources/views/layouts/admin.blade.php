@@ -123,8 +123,27 @@
                 @forelse($sidebarMenus as $menu)
                     @if(empty($menu->permission_name) || auth()->user()->can($menu->permission_name))
                         @php
-                            $isCurrent = $menu->route && (request()->routeIs($menu->route) || request()->is($menu->route));
-                            $targetUrl = Route::has($menu->route) ? route($menu->route) : url($menu->route ?: '#');
+                            $isCurrent = false;
+                            $targetUrl = '#';
+                            if (!empty($menu->route)) {
+                                if (\Illuminate\Support\Facades\Route::has($menu->route)) {
+                                    $targetUrl = route($menu->route);
+                                    $parts = explode('.', $menu->route);
+                                    if (count($parts) >= 2 && $parts[0] === 'admin') {
+                                        $resource = $parts[1];
+                                        if ($resource === 'dashboard') {
+                                            $isCurrent = request()->routeIs('admin.dashboard') || request()->routeIs('dashboard');
+                                        } else {
+                                            $isCurrent = request()->routeIs("admin.{$resource}.*") || request()->routeIs($menu->route);
+                                        }
+                                    } else {
+                                        $isCurrent = request()->routeIs($menu->route);
+                                    }
+                                } else {
+                                    $targetUrl = url($menu->route);
+                                    $isCurrent = request()->is(trim($menu->route, '/'));
+                                }
+                            }
                         @endphp
                         <a href="{{ $targetUrl }}" class="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 {{ $isCurrent ? 'bg-[#24695c] text-white shadow-md shadow-[#24695c]/25 font-bold' : 'text-slate-600 hover:bg-[#e2f4f1]/60 hover:text-[#24695c]' }} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c]" @if($isCurrent) aria-current="page" @endif>
                             <div class="flex items-center gap-3">

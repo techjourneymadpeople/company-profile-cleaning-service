@@ -15,7 +15,7 @@ class MenuSeeder extends Seeder
         $menus = [
             [
                 'title' => 'Dashboard',
-                'route' => 'dashboard',
+                'route' => 'admin.dashboard',
                 'icon' => 'heroicon-o-squares-2x2',
                 'permission_name' => 'access.dashboard',
                 'order' => 1,
@@ -23,7 +23,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'title' => 'User Management',
-                'route' => 'dashboard',
+                'route' => 'admin.users.index',
                 'icon' => 'heroicon-o-users',
                 'permission_name' => 'user.view',
                 'order' => 2,
@@ -31,7 +31,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'title' => 'Role',
-                'route' => 'dashboard',
+                'route' => 'admin.roles.index',
                 'icon' => 'heroicon-o-shield-check',
                 'permission_name' => 'role.view',
                 'order' => 3,
@@ -39,7 +39,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'title' => 'Permission',
-                'route' => 'dashboard',
+                'route' => 'admin.permissions.index',
                 'icon' => 'heroicon-o-key',
                 'permission_name' => 'permission.view',
                 'order' => 4,
@@ -47,7 +47,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'title' => 'Menu',
-                'route' => 'dashboard',
+                'route' => 'admin.menus.index',
                 'icon' => 'heroicon-o-list-bullet',
                 'permission_name' => 'menu.view',
                 'order' => 5,
@@ -55,7 +55,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'title' => 'Pengaturan Sistem',
-                'route' => 'dashboard',
+                'route' => 'admin.settings.index',
                 'icon' => 'heroicon-o-cog-6-tooth',
                 'permission_name' => 'setting.view',
                 'order' => 6,
