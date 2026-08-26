@@ -11,7 +11,7 @@
         $activeTab = request()->query('tab', 'brand');
     @endphp
 
-    <!-- Viho Tabs Navigation Bar -->
+    <!-- Settings Tabs Navigation Bar -->
     <div class="bg-white p-2.5 rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] flex flex-wrap gap-2">
         
         <button type="button" onclick="switchTab('brand')" id="tab-btn-brand" class="tab-btn flex-1 sm:flex-none inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all cursor-pointer font-heading {{ $activeTab === 'brand' ? 'bg-[#24695c] text-white shadow-md shadow-[#24695c]/25' : 'text-slate-600 hover:bg-[#e2f4f1]/60 hover:text-[#24695c]' }}">

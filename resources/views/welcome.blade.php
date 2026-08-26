@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Portal Admin Cleaning Service - {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}</title>
 
-    <!-- Google Fonts: Montserrat & Plus Jakarta Sans (Viho Theme) -->
+    <!-- Google Fonts: Montserrat & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -135,7 +135,7 @@
                     @endguest
                 </div>
 
-                <!-- Features Grid in Viho Card Style -->
+                <!-- Features Grid -->
                 <div class="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
                     <div class="p-6 rounded-3xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-sm hover:border-[#3a9686]/60 transition-colors">
                         <div class="w-12 h-12 rounded-2xl bg-[#24695c]/20 border border-[#3a9686]/30 text-teal-300 flex items-center justify-center mb-4">
@@ -161,7 +161,7 @@
                         <div class="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-500/30 text-sky-300 flex items-center justify-center mb-4">
                             <x-heroicon-o-device-phone-mobile class="w-6 h-6" aria-hidden="true" />
                         </div>
-                        <h2 class="text-base font-bold text-white font-heading">Viho Responsive & WCAG AA</h2>
+                        <h2 class="text-base font-bold text-white font-heading">Mobile Responsive & WCAG AA</h2>
                         <p class="mt-2 text-xs text-slate-400 leading-relaxed">
                             Antarmuka responsif ramah layar sentuh dengan kontras warna dan aksesibilitas ramah pembaca layar.
                         </p>
@@ -186,7 +186,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
             <p>&copy; {{ date('Y') }} {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}. All rights reserved.</p>
             <p class="flex items-center gap-2">
-                <span>Viho Admin Theme Engine</span>
+                <span>Management System Engine</span>
                 <span aria-hidden="true">•</span>
                 <span class="text-teal-400 font-semibold">WCAG 2.1 AA Compliant</span>
             </p>

@@ -87,7 +87,7 @@
         </label>
     </div>
 
-    <!-- Submit Button (Viho Primary Theme) -->
+    <!-- Submit Button -->
     <div>
         <button 
             type="submit" 
@@ -99,7 +99,7 @@
     </div>
 </form>
 
-<!-- Demo Accounts Helper (Viho Pastel Card) -->
+<!-- Demo Accounts Helper -->
 <div class="mt-6 pt-5 border-t border-slate-100 text-xs">
     <div class="flex items-center gap-2 text-slate-700 font-bold mb-2.5 font-heading">
         <span class="w-6 h-6 rounded-lg bg-[#e2f4f1] text-[#24695c] flex items-center justify-center">

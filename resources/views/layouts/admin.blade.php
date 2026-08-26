@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Dashboard') - {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}</title>
 
-    <!-- Google Fonts: Montserrat & Plus Jakarta Sans (Viho Theme) -->
+    <!-- Google Fonts: Montserrat & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,18 +18,18 @@
         h1, h2, h3, h4, h5, h6, .font-heading {
             font-family: 'Montserrat', sans-serif;
         }
-        /* Custom scrollbar for Viho sidebar */
-        .viho-scrollbar::-webkit-scrollbar {
+        /* Custom scrollbar for sidebar */
+        .admin-scrollbar::-webkit-scrollbar {
             width: 5px;
         }
-        .viho-scrollbar::-webkit-scrollbar-track {
+        .admin-scrollbar::-webkit-scrollbar-track {
             background: transparent;
         }
-        .viho-scrollbar::-webkit-scrollbar-thumb {
+        .admin-scrollbar::-webkit-scrollbar-thumb {
             background: rgba(36, 105, 92, 0.15);
             border-radius: 10px;
         }
-        .viho-scrollbar::-webkit-scrollbar-thumb:hover {
+        .admin-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(36, 105, 92, 0.35);
         }
     </style>
@@ -47,11 +47,11 @@
     <!-- Mobile Sidebar Backdrop Overlay -->
     <div id="mobile-sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 lg:hidden hidden transition-opacity duration-300 opacity-0" aria-hidden="true"></div>
 
-    <!-- Viho Style Main Sidebar Navigation -->
-    <aside id="sidebar" role="complementary" aria-label="Sidebar Navigasi Viho" class="fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white text-slate-700 flex flex-col justify-between transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 border-r border-slate-200/80 shrink-0 shadow-[0_0_25px_rgba(8,21,66,0.04)] lg:shadow-none">
+    <!-- Main Sidebar Navigation -->
+    <aside id="sidebar" role="complementary" aria-label="Sidebar Navigasi Admin" class="fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white text-slate-700 flex flex-col justify-between transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 border-r border-slate-200/80 shrink-0 shadow-[0_0_25px_rgba(8,21,66,0.04)] lg:shadow-none">
         
         <!-- Sidebar Content Top -->
-        <div class="flex-1 overflow-y-auto viho-scrollbar flex flex-col">
+        <div class="flex-1 overflow-y-auto admin-scrollbar flex flex-col">
             
             <!-- Brand Header -->
             <div class="h-20 px-6 flex items-center justify-between border-b border-slate-100 bg-white sticky top-0 z-10">
@@ -64,7 +64,7 @@
                             Bersih Sebagian
                         </span>
                         <span class="block text-[10px] font-bold text-[#24695c] uppercase tracking-wider">
-                            Admin Viho Panel
+                            Admin Control Panel
                         </span>
                     </div>
                 </a>
@@ -75,7 +75,7 @@
                 </button>
             </div>
 
-            <!-- Viho Sidebar User Profile Widget -->
+            <!-- Sidebar User Profile Widget -->
             <div class="p-6 text-center border-b border-slate-100 bg-gradient-to-b from-slate-50/70 to-white">
                 <div class="relative inline-block mx-auto mb-3">
                     <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[#24695c] to-[#4aa897] text-white flex items-center justify-center text-xl font-black font-heading shadow-md ring-4 ring-[#e2f4f1]">
@@ -92,24 +92,24 @@
                     </span>
                 </div>
 
-                <!-- Viho Mini User Stats -->
-                <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-3 text-center text-xs">
+                <!-- Mini User Stats -->
+                <!-- <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-3 text-center text-xs">
                     <div>
                         <span class="block font-bold text-slate-900 font-heading">Aktif</span>
                         <span class="text-[10px] text-slate-400">Status</span>
                     </div>
-                    <div class="border-x border-slate-100">
+                    <div>
                         <span class="block font-bold text-[#24695c] font-heading">{{ Auth::user()->roles->count() }}</span>
                         <span class="text-[10px] text-slate-400">Role</span>
                     </div>
                     <div>
                         <span class="block font-bold text-slate-900 font-heading">{{ Auth::user()->getAllPermissions()->count() }}</span>
-                        <span class="text-[10px] text-slate-400">Akses</span>
+                        <span class="text-[10px] text-slate-400">Hak Akses</span>
                     </div>
-                </div>
+                </div> -->
             </div>
 
-            <!-- Dynamic Viho Menu Section with 4 Clear Categories -->
+            <!-- Dynamic Menu Section with 4 Clear Categories -->
             <nav role="navigation" aria-label="Navigasi Menu Utama" class="px-4 py-4 space-y-1">
                 
                 @php
@@ -189,14 +189,14 @@
         <!-- Sidebar Footer -->
         <div class="p-4 border-t border-slate-100 bg-slate-50/80 text-center text-xs text-slate-400">
             <span class="block font-semibold text-slate-600">PT Bersih Sebagian Dari Iman</span>
-            <span class="text-[10px]">Viho Admin Architecture v1.0</span>
+            <span class="text-[10px]">Admin Panel v1.0</span>
         </div>
     </aside>
 
     <!-- Main Container -->
     <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
         
-        <!-- Viho Main Topbar / Header -->
+        <!-- Main Topbar / Header -->
         <header role="banner" class="h-20 bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 sticky top-0 z-30 shadow-[0_2px_15px_rgba(8,21,66,0.03)]">
             
             <!-- Left Side: Mobile Toggle & Quick Search -->
@@ -217,7 +217,7 @@
                 </div>
             </div>
 
-            <!-- Right Side: Viho Header Utilities & User Profile Menu -->
+            <!-- Right Side: Header Utilities & User Profile Menu -->
             <div class="flex items-center gap-2.5 sm:gap-3.5">
                 
                 <!-- Portal Link -->
@@ -226,13 +226,13 @@
                     <span>Lihat Portal</span>
                 </a>
 
-                <!-- Notification Bell Indicator (Viho Style) -->
-                <button type="button" class="relative p-2.5 rounded-2xl text-slate-600 hover:text-[#24695c] hover:bg-[#e2f4f1] border border-slate-200/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c]" aria-label="Notifikasi sistem">
+                <!-- Notification Bell Indicator -->
+                <!-- <button type="button" class="relative p-2.5 rounded-2xl text-slate-600 hover:text-[#24695c] hover:bg-[#e2f4f1] border border-slate-200/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c]" aria-label="Notifikasi sistem">
                     <x-heroicon-o-bell class="w-5 h-5" aria-hidden="true" />
                     <span class="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white animate-pulse" aria-hidden="true"></span>
-                </button>
+                </button> -->
 
-                <!-- Logout Button (Viho Style Pill) -->
+                <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}" class="inline-block">
                     @csrf
                     <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-bold text-rose-700 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 cursor-pointer font-heading uppercase tracking-wider" aria-label="Keluar dari sesi">
@@ -259,7 +259,7 @@
 
         <!-- Footer -->
         <footer role="contentinfo" class="bg-white border-t border-slate-200/80 px-6 py-3.5 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 shrink-0">
-            <span>&copy; {{ date('Y') }} {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}. Viho Theme Engine.</span>
+            <span>&copy; {{ date('Y') }} {{ app(\App\Settings\BrandSettings::class)->site_name ?? 'PT Bersih Sebagian Dari Iman' }}. All rights reserved.</span>
             <span class="mt-1 sm:mt-0 font-bold text-[#24695c]">WCAG 2.1 Level AA Compliant</span>
         </footer>
 

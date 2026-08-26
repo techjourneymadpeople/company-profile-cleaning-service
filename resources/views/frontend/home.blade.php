@@ -499,7 +499,7 @@
             </p>
         </div>
 
-        <!-- Logos Grid (Viho & Reference UI Style) -->
+        <!-- Logos Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center">
             @foreach($clients as $client)
                 <div class="p-5 h-24 bg-slate-50/80 rounded-2xl border border-slate-100 flex items-center justify-center hover:bg-white hover:shadow-md transition-all group">

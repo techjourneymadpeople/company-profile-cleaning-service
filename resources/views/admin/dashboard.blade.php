@@ -7,9 +7,9 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Viho Welcome Greeting Banner -->
+    <!-- Welcome Greeting Banner -->
     <section aria-labelledby="welcome-heading" class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#24695c] via-[#2a7a6b] to-[#1c554a] p-6 sm:p-8 text-white shadow-[0_10px_30px_rgba(36,105,92,0.2)] border border-[#3aa290]/40">
-        <!-- Abstract decorative circular background (Viho style) -->
+        <!-- Abstract decorative circular background -->
         <div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-white/5 blur-2xl pointer-events-none" aria-hidden="true"></div>
         <div class="absolute top-0 right-1/3 w-32 h-32 rounded-full bg-teal-300/10 blur-xl pointer-events-none" aria-hidden="true"></div>
 
@@ -36,7 +36,7 @@
         </div>
     </section>
 
-    <!-- Viho Content & Stat Metric Cards Grid -->
+    <!-- Content & Stat Metric Cards Grid -->
     <section aria-label="Statistik Ringkas" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
         <!-- Total Services -->
@@ -96,7 +96,7 @@
         </div>
     </section>
 
-    <!-- Two Columns Details Section (Viho Style Cards) -->
+    <!-- Two Columns Details Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- Left 2 Cols: Brand & Operational Settings Snapshot -->
@@ -149,7 +149,7 @@
             </div>
         </section>
 
-        <!-- Right Col: Permissions Matrix of Current User (Viho Style) -->
+        <!-- Right Col: Permissions Matrix of Current User -->
         <section aria-labelledby="permissions-heading" class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] flex flex-col justify-between">
             <div>
                 <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="mt-5 space-y-2 max-h-72 overflow-y-auto pr-1 viho-scrollbar">
+                <div class="mt-5 space-y-2 max-h-72 overflow-y-auto pr-1 admin-scrollbar">
                     @forelse(Auth::user()->getAllPermissions() as $perm)
                         <div class="flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-slate-50/80 border border-slate-100 text-xs font-medium text-slate-800 hover:bg-[#e2f4f1]/50 transition-colors">
                             <div class="flex items-center gap-2">
