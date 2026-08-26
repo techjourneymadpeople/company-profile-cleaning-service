@@ -56,77 +56,42 @@
                 </button>
             </div>
 
-            <!-- Navigation Links -->
+            <!-- Dynamic Navigation Links -->
             <nav role="navigation" aria-label="Menu Utama" class="px-4 py-6 space-y-1.5 overflow-y-auto max-h-[calc(100vh-160px)]">
                 
                 <div class="px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                    Menu Utama
+                    Menu Navigasi
                 </div>
 
-                <!-- Dashboard (All) -->
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-colors {{ request()->routeIs('dashboard') ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'text-slate-300 hover:bg-slate-800/80 hover:text-white' }} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400" @if(request()->routeIs('dashboard')) aria-current="page" @endif>
-                    <x-heroicon-o-squares-2x2 class="w-5 h-5 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-400' }}" aria-hidden="true" />
-                    <span>Dashboard</span>
-                </a>
+                @php
+                    $sidebarMenus = \App\Models\Menu::active()->ordered()->get();
+                @endphp
 
-                <!-- Content Management (Admin, Owner, Super Admin) -->
-                @can('content.view')
-                    <div class="pt-4 px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                        Manajemen Konten
+                @forelse($sidebarMenus as $menu)
+                    @if(empty($menu->permission_name) || auth()->user()->can($menu->permission_name))
+                        @php
+                            $isCurrent = $menu->route && (request()->routeIs($menu->route) || request()->is($menu->route));
+                            $targetUrl = Route::has($menu->route) ? route($menu->route) : url($menu->route ?: '#');
+                        @endphp
+                        <a href="{{ $targetUrl }}" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold transition-colors {{ $isCurrent ? 'bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-600/30' : 'text-slate-300 hover:bg-slate-800/80 hover:text-white' }} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400" @if($isCurrent) aria-current="page" @endif>
+                            <div class="flex items-center gap-3">
+                                @if($menu->icon && str_starts_with($menu->icon, 'heroicon-'))
+                                    <x-dynamic-component :component="$menu->icon" class="w-5 h-5 {{ $isCurrent ? 'text-white' : 'text-slate-400' }}" aria-hidden="true" />
+                                @else
+                                    <x-heroicon-o-folder class="w-5 h-5 {{ $isCurrent ? 'text-white' : 'text-slate-400' }}" aria-hidden="true" />
+                                @endif
+                                <span>{{ $menu->title }}</span>
+                            </div>
+                            @if($menu->permission_name && in_array($menu->permission_name, ['role.view', 'permission.view']))
+                                <span class="text-[10px] bg-rose-950/80 text-rose-300 border border-rose-800 px-1.5 py-0.5 rounded font-bold">Teknis</span>
+                            @endif
+                        </a>
+                    @endif
+                @empty
+                    <div class="px-3 py-2 text-xs text-slate-500 italic">
+                        Tidak ada menu yang tersedia.
                     </div>
-                    <a href="#content" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                        <div class="flex items-center gap-3">
-                            <x-heroicon-o-document-text class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                            <span>Konten & Layanan</span>
-                        </div>
-                        <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-md font-mono">Modul</span>
-                    </a>
-                @endcan
-
-                <!-- Menu Management (Owner, Super Admin) -->
-                @can('menu.view')
-                    <a href="#menus" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                        <div class="flex items-center gap-3">
-                            <x-heroicon-o-list-bullet class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                            <span>Struktur Menu</span>
-                        </div>
-                    </a>
-                @endcan
-
-                <!-- System & User Management (Owner, Super Admin) -->
-                @if(auth()->user()->can('user.view') || auth()->user()->can('role.view') || auth()->user()->can('setting.view'))
-                    <div class="pt-4 px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                        Sistem & Kontrol
-                    </div>
-
-                    @can('user.view')
-                        <a href="#users" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                            <div class="flex items-center gap-3">
-                                <x-heroicon-o-users class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                                <span>Manajemen User</span>
-                            </div>
-                        </a>
-                    @endcan
-
-                    @can('role.view')
-                        <a href="#roles" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                            <div class="flex items-center gap-3">
-                                <x-heroicon-o-shield-check class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                                <span>Roles & Permissions</span>
-                            </div>
-                            <span class="text-[10px] bg-rose-950/80 text-rose-300 border border-rose-800 px-1.5 py-0.5 rounded font-bold">Teknis</span>
-                        </a>
-                    @endcan
-
-                    @can('setting.view')
-                        <a href="#settings" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                            <div class="flex items-center gap-3">
-                                <x-heroicon-o-cog-6-tooth class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                                <span>Pengaturan Sistem</span>
-                            </div>
-                        </a>
-                    @endcan
-                @endif
+                @endforelse
 
             </nav>
         </div>

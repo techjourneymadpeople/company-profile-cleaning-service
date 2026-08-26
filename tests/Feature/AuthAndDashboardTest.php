@@ -53,4 +53,40 @@ class AuthAndDashboardTest extends TestCase
         $twoFactorResponse = $this->get('/two-factor-challenge');
         $twoFactorResponse->assertStatus(404);
     }
+
+    public function test_super_admin_can_see_all_dynamic_menus(): void
+    {
+        $superAdmin = User::where('email', 'superadmin@bersihsebagian.com')->first();
+        $response = $this->actingAs($superAdmin)->get('/dashboard');
+        $response->assertStatus(200);
+        $response->assertSee('Dashboard');
+        $response->assertSee('User Management');
+        $response->assertSee('Role');
+        $response->assertSee('Permission');
+        $response->assertSee('Menu');
+        $response->assertSee('Pengaturan Sistem');
+    }
+
+    public function test_owner_does_not_see_technical_role_and_permission_menus(): void
+    {
+        $owner = User::where('email', 'owner@bersihsebagian.com')->first();
+        $response = $this->actingAs($owner)->get('/dashboard');
+        $response->assertStatus(200);
+        $response->assertSee('Dashboard');
+        $response->assertSee('User Management');
+        $response->assertSee('Menu');
+        $response->assertSee('Pengaturan Sistem');
+        $response->assertDontSee('Roles & Permissions');
+    }
+
+    public function test_admin_only_sees_permitted_menus(): void
+    {
+        $admin = User::where('email', 'admin@bersihsebagian.com')->first();
+        $response = $this->actingAs($admin)->get('/dashboard');
+        $response->assertStatus(200);
+        $response->assertSee('Dashboard');
+        $response->assertSee('Menu');
+        $response->assertDontSee('User Management');
+        $response->assertDontSee('Pengaturan Sistem');
+    }
 }
