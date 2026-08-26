@@ -7,7 +7,10 @@ return [
      * put them (manually) here.
      */
     'settings' => [
-
+        App\Settings\BrandSettings::class,
+        App\Settings\ContactSettings::class,
+        App\Settings\SocialMediaSettings::class,
+        App\Settings\SeoSettings::class,
     ],
 
     /*
