@@ -51,10 +51,10 @@ class RolePermissionSeeder extends Seeder
             'setting.update',
 
             // Content Management
-            'content.view',
-            'content.create',
-            'content.edit',
-            'content.delete',
+            // 'content.view',
+            // 'content.create',
+            // 'content.edit',
+            // 'content.delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -81,10 +81,10 @@ class RolePermissionSeeder extends Seeder
             'menu.delete',
             'setting.view',
             'setting.update',
-            'content.view',
-            'content.create',
-            'content.edit',
-            'content.delete',
+            // 'content.view',
+            // 'content.create',
+            // 'content.edit',
+            // 'content.delete',
         ];
         $ownerRole->syncPermissions($ownerPermissions);
 
@@ -93,10 +93,10 @@ class RolePermissionSeeder extends Seeder
         $adminPermissions = [
             'access.dashboard',
             'menu.view',
-            'content.view',
-            'content.create',
-            'content.edit',
-            'content.delete',
+            // 'content.view',
+            // 'content.create',
+            // 'content.edit',
+            // 'content.delete',
         ];
         $adminRole->syncPermissions($adminPermissions);
     }
