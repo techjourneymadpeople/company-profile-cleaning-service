@@ -44,4 +44,13 @@ class AuthAndDashboardTest extends TestCase
         $dashboardResponse->assertSee('Super Admin');
         $dashboardResponse->assertSee('Dashboard Utama');
     }
+
+    public function test_registration_and_two_factor_are_disabled(): void
+    {
+        $registerResponse = $this->get('/register');
+        $registerResponse->assertStatus(404);
+
+        $twoFactorResponse = $this->get('/two-factor-challenge');
+        $twoFactorResponse->assertStatus(404);
+    }
 }
