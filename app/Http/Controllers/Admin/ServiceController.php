@@ -12,19 +12,11 @@ use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $search = $request->query('search');
+        $services = Service::latest()->get();
 
-        $services = Service::when($search, function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%")
-                      ->orWhere('category', 'like', "%{$search}%");
-            })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.services.index', compact('services', 'search'));
+        return view('admin.services.index', compact('services'));
     }
 
     public function create(): View

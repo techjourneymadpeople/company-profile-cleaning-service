@@ -11,20 +11,11 @@ use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $search = $request->query('search');
+        $projects = Project::with('service')->latest()->get();
 
-        $projects = Project::with('service')
-            ->when($search, function ($query, $search) {
-                $query->where('title', 'like', "%{$search}%")
-                      ->orWhere('category', 'like', "%{$search}%");
-            })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.projects.index', compact('projects', 'search'));
+        return view('admin.projects.index', compact('projects'));
     }
 
     public function create(): View

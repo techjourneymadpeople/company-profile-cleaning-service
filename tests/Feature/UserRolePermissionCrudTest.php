@@ -81,7 +81,7 @@ class UserRolePermissionCrudTest extends TestCase
         // 1. Index
         $response = $this->get(route('admin.roles.index'));
         $response->assertStatus(200);
-        $response->assertSee('Role & Permission Management');
+        $response->assertSee('Role Management');
 
         // 2. Create Page
         $createResponse = $this->get(route('admin.roles.create'));
@@ -134,7 +134,7 @@ class UserRolePermissionCrudTest extends TestCase
         // 1. Index
         $response = $this->get(route('admin.permissions.index'));
         $response->assertStatus(200);
-        $response->assertSee('Permissions List');
+        $response->assertSee('Permission Management');
 
         // 2. Create Page
         $createResponse = $this->get(route('admin.permissions.create'));

@@ -10,26 +10,11 @@ use Illuminate\View\View;
 
 class InquiryController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $status = $request->query('status');
-        $search = $request->query('search');
+        $inquiries = Inquiry::latest()->get();
 
-        $inquiries = Inquiry::when($status, function ($query, $status) {
-                $query->where('status', $status);
-            })
-            ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                      ->orWhere('email', 'like', "%{$search}%")
-                      ->orWhere('company_name', 'like', "%{$search}%");
-                });
-            })
-            ->latest()
-            ->paginate(15)
-            ->withQueryString();
-
-        return view('admin.inquiries.index', compact('inquiries', 'status', 'search'));
+        return view('admin.inquiries.index', compact('inquiries'));
     }
 
     public function show(Inquiry $inquiry): View

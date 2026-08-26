@@ -7,22 +7,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action & Search Bar -->
+    <!-- Top Action Card -->
     <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-        <form method="GET" action="{{ route('admin.projects.index') }}" class="flex-1 max-w-md">
-            <div class="relative rounded-2xl">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <x-heroicon-o-magnifying-glass class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                </div>
-                <input 
-                    type="text" 
-                    name="search" 
-                    value="{{ $search }}" 
-                    placeholder="Cari judul proyek atau kategori..." 
-                    class="block w-full rounded-2xl border border-slate-200 pl-11 pr-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#24695c] focus:border-[#24695c] transition-all"
-                >
-            </div>
-        </form>
+        <div>
+            <h2 class="text-base font-bold text-slate-900 font-heading">Daftar Galeri Proyek</h2>
+            <p class="text-xs text-slate-400">Total {{ $projects->count() }} proyek Before & After</p>
+        </div>
 
         @can('project.create')
             <a href="{{ route('admin.projects.create') }}" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-white bg-[#24695c] hover:bg-[#1b5247] shadow-md shadow-[#24695c]/25 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c] font-heading uppercase tracking-wider">
@@ -32,10 +22,10 @@
         @endcan
     </div>
 
-    <!-- Projects Table Card -->
-    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden">
+    <!-- Projects Table Card with DataTable -->
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden p-2 sm:p-4">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-600">
+            <table class="datatable w-full text-left text-sm text-slate-600">
                 <thead class="bg-slate-50/80 text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-heading border-b border-slate-100">
                     <tr>
                         <th scope="col" class="px-6 py-4">Judul Proyek</th>
@@ -46,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    @forelse($projects as $project)
+                    @foreach($projects as $project)
                         <tr class="hover:bg-slate-50/50 transition-colors">
                             <!-- Project Title & Category -->
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -114,22 +104,10 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="px-6 py-12 text-center text-slate-400 text-xs italic">
-                                Belum ada galeri hasil kerja.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
-
-        @if($projects->hasPages())
-            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50">
-                {{ $projects->links() }}
-            </div>
-        @endif
     </div>
 
 </div>

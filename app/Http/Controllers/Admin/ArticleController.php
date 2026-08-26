@@ -13,20 +13,11 @@ use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $search = $request->query('search');
+        $articles = Article::with('author')->latest()->get();
 
-        $articles = Article::with('author')
-            ->when($search, function ($query, $search) {
-                $query->where('title', 'like', "%{$search}%")
-                      ->orWhere('category', 'like', "%{$search}%");
-            })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.articles.index', compact('articles', 'search'));
+        return view('admin.articles.index', compact('articles'));
     }
 
     public function create(): View

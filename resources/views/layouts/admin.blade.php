@@ -286,6 +286,32 @@
                     closeSidebar();
                 }
             });
+
+            // Global DataTable Auto-initialization
+            if (typeof $ !== 'undefined' && $.fn.DataTable) {
+                $('.datatable').each(function() {
+                    if (!$.fn.DataTable.isDataTable(this)) {
+                        $(this).DataTable({
+                            language: {
+                                search: "Cari Data:",
+                                lengthMenu: "Tampilkan _MENU_ data",
+                                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                                infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                                infoFiltered: "(disaring dari _MAX_ data)",
+                                zeroRecords: "Tidak ada data yang cocok ditemukan",
+                                paginate: {
+                                    first: "Awal",
+                                    last: "Akhir",
+                                    next: "Berikutnya",
+                                    previous: "Sebelumnya"
+                                }
+                            },
+                            responsive: true,
+                            pageLength: 10
+                        });
+                    }
+                });
+            }
         });
     </script>
     @stack('scripts')

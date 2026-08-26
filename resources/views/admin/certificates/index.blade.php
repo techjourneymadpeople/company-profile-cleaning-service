@@ -7,11 +7,11 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action Bar -->
+    <!-- Top Action Card -->
     <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div>
             <h2 class="text-base font-bold text-slate-900 font-heading">Daftar Sertifikat & Akreditasi</h2>
-            <p class="text-xs text-slate-400">Total {{ $certificates->total() }} sertifikat terdaftar</p>
+            <p class="text-xs text-slate-400">Total {{ $certificates->count() }} sertifikat terdaftar</p>
         </div>
 
         @can('certificate.create')
@@ -22,10 +22,10 @@
         @endcan
     </div>
 
-    <!-- Certificates Table Card -->
-    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden">
+    <!-- Certificates Table Card with DataTable -->
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden p-2 sm:p-4">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-600">
+            <table class="datatable w-full text-left text-sm text-slate-600">
                 <thead class="bg-slate-50/80 text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-heading border-b border-slate-100">
                     <tr>
                         <th scope="col" class="px-6 py-4">Nama Sertifikat</th>
@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    @forelse($certificates as $cert)
+                    @foreach($certificates as $cert)
                         <tr class="hover:bg-slate-50/50 transition-colors">
                             <!-- Certificate Name -->
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -90,22 +90,10 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="px-6 py-12 text-center text-slate-400 text-xs italic">
-                                Belum ada data sertifikat akreditasi.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
-
-        @if($certificates->hasPages())
-            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50">
-                {{ $certificates->links() }}
-            </div>
-        @endif
     </div>
 
 </div>

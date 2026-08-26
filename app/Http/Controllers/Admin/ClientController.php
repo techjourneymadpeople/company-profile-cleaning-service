@@ -10,18 +10,11 @@ use Illuminate\View\View;
 
 class ClientController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $search = $request->query('search');
+        $clients = Client::orderBy('sort_order', 'asc')->get();
 
-        $clients = Client::when($search, function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%");
-            })
-            ->orderBy('sort_order', 'asc')
-            ->paginate(15)
-            ->withQueryString();
-
-        return view('admin.clients.index', compact('clients', 'search'));
+        return view('admin.clients.index', compact('clients'));
     }
 
     public function create(): View

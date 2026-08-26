@@ -7,11 +7,11 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action Bar -->
+    <!-- Top Action Card -->
     <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div>
             <h2 class="text-base font-bold text-slate-900 font-heading">Daftar Testimoni & Review</h2>
-            <p class="text-xs text-slate-400">Total {{ $testimonials->total() }} ulasan kepuasan klien</p>
+            <p class="text-xs text-slate-400">Total {{ $testimonials->count() }} ulasan kepuasan klien</p>
         </div>
 
         @can('testimonial.create')
@@ -22,10 +22,10 @@
         @endcan
     </div>
 
-    <!-- Testimonials Table Card -->
-    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden">
+    <!-- Testimonials Table Card with DataTable -->
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden p-2 sm:p-4">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-600">
+            <table class="datatable w-full text-left text-sm text-slate-600">
                 <thead class="bg-slate-50/80 text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-heading border-b border-slate-100">
                     <tr>
                         <th scope="col" class="px-6 py-4">Klien & Perusahaan</th>
@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    @forelse($testimonials as $testimonial)
+                    @foreach($testimonials as $testimonial)
                         <tr class="hover:bg-slate-50/50 transition-colors">
                             <!-- Client Details -->
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -90,22 +90,10 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-slate-400 text-xs italic">
-                                Belum ada ulasan testimoni klien.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
-
-        @if($testimonials->hasPages())
-            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50">
-                {{ $testimonials->links() }}
-            </div>
-        @endif
     </div>
 
 </div>

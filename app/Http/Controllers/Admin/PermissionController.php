@@ -14,19 +14,13 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(): View
     {
-        $search = $request->query('search');
-
         $permissions = Permission::with('roles')
-            ->when($search, function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%");
-            })
             ->orderBy('name', 'asc')
-            ->paginate(15)
-            ->withQueryString();
+            ->get();
 
-        return view('admin.permissions.index', compact('permissions', 'search'));
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**

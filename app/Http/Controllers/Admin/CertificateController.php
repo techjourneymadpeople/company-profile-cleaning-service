@@ -12,7 +12,7 @@ class CertificateController extends Controller
 {
     public function index(): View
     {
-        $certificates = Certificate::latest()->paginate(10);
+        $certificates = Certificate::latest()->get();
 
         return view('admin.certificates.index', compact('certificates'));
     }

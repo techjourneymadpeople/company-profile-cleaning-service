@@ -1,80 +1,75 @@
 @extends('layouts.admin')
 
 @section('title', 'Manajemen Permission')
-@section('header-title', 'Permissions List')
-@section('header-subtitle', 'Kelola daftar izin akses fungsional (permissions) dalam sistem')
+@section('header-title', 'Permission Management')
+@section('header-subtitle', 'Kelola daftar izin aksi dan kewenangan teknis sistem')
 
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action & Search Bar Card -->
+    <!-- Top Action Card -->
     <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-        <!-- Search Form -->
-        <form method="GET" action="{{ route('admin.permissions.index') }}" class="flex-1 max-w-md">
-            <div class="relative rounded-2xl">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <x-heroicon-o-magnifying-glass class="w-5 h-5 text-slate-400" aria-hidden="true" />
-                </div>
-                <input 
-                    type="text" 
-                    name="search" 
-                    value="{{ $search }}" 
-                    placeholder="Cari nama permission (misal: user.view)..." 
-                    class="block w-full rounded-2xl border border-slate-200 pl-11 pr-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#24695c] focus:border-[#24695c] transition-all"
-                >
-            </div>
-        </form>
+        <div>
+            <h2 class="text-base font-bold text-slate-900 font-heading">Daftar Hak Akses Sistem</h2>
+            <p class="text-xs text-slate-400">Total {{ $permissions->count() }} permissions terdaftar</p>
+        </div>
 
-        <!-- Action Button -->
         @can('permission.create')
             <a href="{{ route('admin.permissions.create') }}" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-white bg-[#24695c] hover:bg-[#1b5247] shadow-md shadow-[#24695c]/25 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24695c] font-heading uppercase tracking-wider">
-                <x-heroicon-o-plus-circle class="w-4 h-4 text-teal-200" aria-hidden="true" />
+                <x-heroicon-o-key class="w-4 h-4 text-teal-200" aria-hidden="true" />
                 <span>Tambah Permission</span>
             </a>
         @endcan
     </div>
 
-    <!-- Permissions Table Card -->
-    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden">
+    <!-- Permissions Table Card with DataTable -->
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_5px_25px_rgba(8,21,66,0.03)] overflow-hidden p-2 sm:p-4">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-600">
+            <table class="datatable w-full text-left text-sm text-slate-600">
                 <thead class="bg-slate-50/80 text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-heading border-b border-slate-100">
                     <tr>
                         <th scope="col" class="px-6 py-4">Nama Permission</th>
-                        <th scope="col" class="px-6 py-4">Guard</th>
-                        <th scope="col" class="px-6 py-4">Terpasang Pada Role</th>
+                        <th scope="col" class="px-6 py-4">Modul / Grup</th>
+                        <th scope="col" class="px-6 py-4">Role Terkait</th>
                         <th scope="col" class="px-6 py-4 text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    @forelse($permissions as $permission)
+                    @foreach($permissions as $permission)
+                        @php
+                            $parts = explode('.', $permission->name);
+                            $module = count($parts) > 1 ? ucfirst($parts[0]) : 'General';
+                        @endphp
                         <tr class="hover:bg-slate-50/50 transition-colors">
-                            <!-- Permission Identifier -->
+                            <!-- Name -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-xl bg-[#e2f4f1] text-[#24695c] flex items-center justify-center font-bold">
+                                    <div class="w-8 h-8 rounded-xl bg-[#e2f4f1] text-[#24695c] flex items-center justify-center font-mono font-bold text-xs">
                                         <x-heroicon-o-key class="w-4 h-4" aria-hidden="true" />
                                     </div>
                                     <div>
-                                        <span class="font-bold text-slate-900 font-mono text-sm">{{ $permission->name }}</span>
+                                        <div class="font-bold text-slate-900 font-mono text-xs">{{ $permission->name }}</div>
+                                        <div class="text-[10px] text-slate-400 font-mono">guard: {{ $permission->guard_name }}</div>
                                     </div>
                                 </div>
                             </td>
 
-                            <!-- Guard -->
-                            <td class="px-6 py-4 whitespace-nowrap text-xs text-slate-500 font-mono">
-                                <code>{{ $permission->guard_name }}</code>
+                            <!-- Module -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 uppercase font-heading">
+                                    {{ $module }}
+                                </span>
                             </td>
 
-                            <!-- Assigned Roles -->
+                            <!-- Roles with this permission -->
                             <td class="px-6 py-4">
-                                <div class="flex flex-wrap gap-1.5">
+                                <div class="flex flex-wrap gap-1">
                                     @forelse($permission->roles as $role)
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 uppercase font-heading">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[#e2f4f1] text-[#24695c] border border-[#a2ded5]/60">
                                             {{ $role->name }}
                                         </span>
                                     @empty
-                                        <span class="text-xs text-slate-400 italic">Belum terpasang di role mana pun</span>
+                                        <span class="text-xs text-slate-400 italic">Belum ada role</span>
                                     @endforelse
                                 </div>
                             </td>
@@ -100,23 +95,10 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-slate-400 text-xs italic">
-                                Tidak ada permission yang ditemukan.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
-
-        <!-- Pagination Footer -->
-        @if($permissions->hasPages())
-            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50">
-                {{ $permissions->links() }}
-            </div>
-        @endif
     </div>
 
 </div>
