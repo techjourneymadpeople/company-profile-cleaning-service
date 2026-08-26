@@ -12,8 +12,8 @@ class AuthAndDashboardTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('Admin Panel');
-        $response->assertSee('Masuk');
+        $response->assertSee('Kebersihan Adalah Komitmen Kami');
+        $response->assertSee('Hubungi Kami');
     }
 
     public function test_login_page_renders_successfully(): void

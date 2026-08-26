@@ -13,12 +13,35 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+|--------------------------------------------------------------------------
+| Public Frontend Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/', [PublicController::class, 'home'])->name('public.home');
+Route::get('/layanan', [PublicController::class, 'services'])->name('public.services');
+Route::get('/layanan/{slug}', [PublicController::class, 'serviceDetail'])->name('public.services.show');
+Route::get('/mitra-portofolio', [PublicController::class, 'portfolio'])->name('public.portfolio');
+Route::get('/artikel', [PublicController::class, 'articles'])->name('public.articles');
+Route::get('/artikel/{slug}', [PublicController::class, 'articleDetail'])->name('public.articles.show');
+Route::get('/kontak', [PublicController::class, 'contact'])->name('public.contact');
+Route::post('/kontak', [PublicController::class, 'submitInquiry'])->name('public.contact.submit');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('public.sitemap');
+
+// Legacy route alias for compatibility
+Route::get('/home', function () {
+    return redirect()->route('public.home');
 })->name('home');
 
+/*
+|--------------------------------------------------------------------------
+| Authenticated Admin Panel Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
