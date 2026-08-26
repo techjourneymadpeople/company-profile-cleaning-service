@@ -67,14 +67,25 @@
                     <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 font-heading">
                         Kata Sandi <span class="text-rose-500" aria-hidden="true">*</span>
                     </label>
-                    <input 
-                        id="password" 
-                        name="password" 
-                        type="password" 
-                        required 
-                        placeholder="Minimal 8 karakter"
-                        class="mt-1.5 block w-full rounded-2xl border {{ $errors->has('password') ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500' : 'border-slate-200 focus:border-[#24695c] focus:ring-[#24695c]' }} px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
-                    >
+                    <div class="mt-1.5 relative rounded-2xl">
+                        <input 
+                            id="password" 
+                            name="password" 
+                            type="password" 
+                            required 
+                            placeholder="Minimal 8 karakter"
+                            class="block w-full rounded-2xl border {{ $errors->has('password') ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500' : 'border-slate-200 focus:border-[#24695c] focus:ring-[#24695c]' }} pl-4 pr-11 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
+                        >
+                        <button 
+                            type="button" 
+                            onclick="togglePasswordVisibility('password', this)" 
+                            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-[#24695c] focus:outline-none cursor-pointer transition-colors" 
+                            aria-label="Tampilkan kata sandi"
+                        >
+                            <x-heroicon-o-eye class="w-5 h-5 eye-icon" aria-hidden="true" />
+                            <x-heroicon-o-eye-slash class="w-5 h-5 eye-slash-icon hidden" aria-hidden="true" />
+                        </button>
+                    </div>
                     @error('password')
                         <p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>
                     @enderror
@@ -84,14 +95,25 @@
                     <label for="password_confirmation" class="block text-xs font-bold uppercase tracking-wider text-slate-700 font-heading">
                         Konfirmasi Kata Sandi <span class="text-rose-500" aria-hidden="true">*</span>
                     </label>
-                    <input 
-                        id="password_confirmation" 
-                        name="password_confirmation" 
-                        type="password" 
-                        required 
-                        placeholder="Ulangi kata sandi"
-                        class="mt-1.5 block w-full rounded-2xl border border-slate-200 focus:border-[#24695c] focus:ring-[#24695c] px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
-                    >
+                    <div class="mt-1.5 relative rounded-2xl">
+                        <input 
+                            id="password_confirmation" 
+                            name="password_confirmation" 
+                            type="password" 
+                            required 
+                            placeholder="Ulangi kata sandi"
+                            class="block w-full rounded-2xl border border-slate-200 focus:border-[#24695c] focus:ring-[#24695c] pl-4 pr-11 py-3 text-sm text-slate-900 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 transition-all"
+                        >
+                        <button 
+                            type="button" 
+                            onclick="togglePasswordVisibility('password_confirmation', this)" 
+                            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-[#24695c] focus:outline-none cursor-pointer transition-colors" 
+                            aria-label="Tampilkan konfirmasi kata sandi"
+                        >
+                            <x-heroicon-o-eye class="w-5 h-5 eye-icon" aria-hidden="true" />
+                            <x-heroicon-o-eye-slash class="w-5 h-5 eye-slash-icon hidden" aria-hidden="true" />
+                        </button>
+                    </div>
                 </div>
             </div>
 

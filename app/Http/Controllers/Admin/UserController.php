@@ -67,6 +67,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'email_verified_at' => now(),
         ]);
 
         if (!empty($validated['roles'])) {
