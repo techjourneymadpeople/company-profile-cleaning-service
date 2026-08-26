@@ -50,11 +50,52 @@ class RolePermissionSeeder extends Seeder
             'setting.view',
             'setting.update',
 
-            // Content Management
-            // 'content.view',
-            // 'content.create',
-            // 'content.edit',
-            // 'content.delete',
+            // 1. Solusi & Layanan (Services)
+            'service.view',
+            'service.create',
+            'service.edit',
+            'service.delete',
+
+            // 2. Galeri Hasil Kerja Before & After (Projects)
+            'project.view',
+            'project.create',
+            'project.edit',
+            'project.delete',
+
+            // 3. Klien & Mitra (Clients)
+            'client.view',
+            'client.create',
+            'client.edit',
+            'client.delete',
+
+            // 4. Akreditasi & Sertifikasi ISO (Certificates)
+            'certificate.view',
+            'certificate.create',
+            'certificate.edit',
+            'certificate.delete',
+
+            // 5. Angka Pencapaian (Statistics)
+            'statistic.view',
+            'statistic.create',
+            'statistic.edit',
+            'statistic.delete',
+
+            // 6. Testimoni Klien (Testimonials)
+            'testimonial.view',
+            'testimonial.create',
+            'testimonial.edit',
+            'testimonial.delete',
+
+            // 7. Berita & Artikel (Articles)
+            'article.view',
+            'article.create',
+            'article.edit',
+            'article.delete',
+
+            // 8. Kotak Masuk Permintaan Penawaran (Inquiries / Leads)
+            'inquiry.view',
+            'inquiry.update',
+            'inquiry.delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -81,22 +122,32 @@ class RolePermissionSeeder extends Seeder
             'menu.delete',
             'setting.view',
             'setting.update',
-            // 'content.view',
-            // 'content.create',
-            // 'content.edit',
-            // 'content.delete',
+            // Content modules
+            'service.view', 'service.create', 'service.edit', 'service.delete',
+            'project.view', 'project.create', 'project.edit', 'project.delete',
+            'client.view', 'client.create', 'client.edit', 'client.delete',
+            'certificate.view', 'certificate.create', 'certificate.edit', 'certificate.delete',
+            'statistic.view', 'statistic.create', 'statistic.edit', 'statistic.delete',
+            'testimonial.view', 'testimonial.create', 'testimonial.edit', 'testimonial.delete',
+            'article.view', 'article.create', 'article.edit', 'article.delete',
+            'inquiry.view', 'inquiry.update', 'inquiry.delete',
         ];
         $ownerRole->syncPermissions($ownerPermissions);
 
-        // C. Admin (Hanya content & view menu/dashboard)
+        // C. Admin (Konten, Leads, dan Dashboard/Menu)
         $adminRole = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'web']);
         $adminPermissions = [
             'access.dashboard',
             'menu.view',
-            // 'content.view',
-            // 'content.create',
-            // 'content.edit',
-            // 'content.delete',
+            // Content modules
+            'service.view', 'service.create', 'service.edit', 'service.delete',
+            'project.view', 'project.create', 'project.edit', 'project.delete',
+            'client.view', 'client.create', 'client.edit', 'client.delete',
+            'certificate.view', 'certificate.create', 'certificate.edit', 'certificate.delete',
+            'statistic.view', 'statistic.create', 'statistic.edit', 'statistic.delete',
+            'testimonial.view', 'testimonial.create', 'testimonial.edit', 'testimonial.delete',
+            'article.view', 'article.create', 'article.edit', 'article.delete',
+            'inquiry.view', 'inquiry.update', 'inquiry.delete',
         ];
         $adminRole->syncPermissions($adminPermissions);
     }

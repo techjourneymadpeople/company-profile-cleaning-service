@@ -36,65 +36,62 @@
         </div>
     </section>
 
-    <!-- Viho 4 Pastel Stat Metric Cards Grid -->
+    <!-- Viho Content & Stat Metric Cards Grid -->
     <section aria-label="Statistik Ringkas" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        <!-- Total Users (Viho Mint Card) -->
+        <!-- Total Services -->
         <div class="bg-[#e2f4f1]/60 border border-[#a2ded5]/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all group">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase tracking-wider text-[#24695c] font-heading">Total Pengguna</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#24695c] font-heading">Solusi & Layanan</span>
                 <div class="w-11 h-11 rounded-2xl bg-white text-[#24695c] flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                    <x-heroicon-o-users class="w-6 h-6" aria-hidden="true" />
+                    <x-heroicon-o-sparkles class="w-6 h-6" aria-hidden="true" />
                 </div>
             </div>
             <div class="mt-4 flex items-baseline gap-2">
-                <span class="text-3xl font-black text-slate-900 font-heading">{{ \App\Models\User::count() }}</span>
-                <span class="text-xs font-semibold text-[#24695c]">Akun terdaftar</span>
+                <span class="text-3xl font-black text-slate-900 font-heading">{{ \App\Models\Service::count() }}</span>
+                <span class="text-xs font-semibold text-[#24695c]">Layanan Aktif</span>
             </div>
         </div>
 
-        <!-- Total Roles (Viho Sky Card) -->
+        <!-- Total Projects -->
         <div class="bg-sky-50/70 border border-sky-200/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all group">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase tracking-wider text-sky-700 font-heading">Role Sistem</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-700 font-heading">Galeri Proyek</span>
                 <div class="w-11 h-11 rounded-2xl bg-white text-sky-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                    <x-heroicon-o-shield-check class="w-6 h-6" aria-hidden="true" />
+                    <x-heroicon-o-photo class="w-6 h-6" aria-hidden="true" />
                 </div>
             </div>
             <div class="mt-4 flex items-baseline gap-2">
-                <span class="text-3xl font-black text-slate-900 font-heading">{{ \Spatie\Permission\Models\Role::count() }}</span>
-                <span class="text-xs font-semibold text-sky-700">Level hak akses</span>
+                <span class="text-3xl font-black text-slate-900 font-heading">{{ \App\Models\Project::count() }}</span>
+                <span class="text-xs font-semibold text-sky-700">Before & After</span>
             </div>
         </div>
 
-        <!-- Spatie Settings (Viho Amber Card) -->
+        <!-- Leads & Inquiries -->
+        <div class="bg-rose-50/70 border border-rose-200/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-rose-700 font-heading">Permintaan Penawaran</span>
+                <div class="w-11 h-11 rounded-2xl bg-white text-rose-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                    <x-heroicon-o-inbox-arrow-down class="w-6 h-6" aria-hidden="true" />
+                </div>
+            </div>
+            <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-3xl font-black text-slate-900 font-heading">{{ \App\Models\Inquiry::count() }}</span>
+                <span class="text-xs font-semibold text-rose-700">Leads Masuk</span>
+            </div>
+        </div>
+
+        <!-- Clients & Partners -->
         <div class="bg-amber-50/70 border border-amber-200/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all group">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-700 font-heading">Grup Settings</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-700 font-heading">Klien & Mitra</span>
                 <div class="w-11 h-11 rounded-2xl bg-white text-amber-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                    <x-heroicon-o-cog-6-tooth class="w-6 h-6" aria-hidden="true" />
+                    <x-heroicon-o-building-office-2 class="w-6 h-6" aria-hidden="true" />
                 </div>
             </div>
             <div class="mt-4 flex items-baseline gap-2">
-                <span class="text-3xl font-black text-slate-900 font-heading">4</span>
-                <span class="text-xs font-semibold text-amber-700">Brand, Kontak, Medsos, SEO</span>
-            </div>
-        </div>
-
-        <!-- Storage Status (Viho Emerald Card) -->
-        <div class="bg-emerald-50/70 border border-emerald-200/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all group">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 font-heading">Asset Storage</span>
-                <div class="w-11 h-11 rounded-2xl bg-white text-emerald-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                    <x-heroicon-o-folder-arrow-down class="w-6 h-6" aria-hidden="true" />
-                </div>
-            </div>
-            <div class="mt-4 flex items-baseline gap-2">
-                <span class="text-lg font-black text-[#24695c] flex items-center gap-1 font-heading">
-                    <x-heroicon-s-check-circle class="w-5 h-5" aria-hidden="true" />
-                    Terhubung
-                </span>
-                <span class="text-xs text-slate-500">public/storage</span>
+                <span class="text-3xl font-black text-slate-900 font-heading">{{ \App\Models\Client::count() }}</span>
+                <span class="text-xs font-semibold text-amber-700">Trusted By Mitra</span>
             </div>
         </div>
     </section>
